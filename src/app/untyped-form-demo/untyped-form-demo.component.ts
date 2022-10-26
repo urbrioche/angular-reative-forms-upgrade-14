@@ -26,6 +26,11 @@ export class UntypedFormDemoComponent implements OnInit {
     // compile error
     // this.form.get('zip')?.disabled();
     (this.form.get('zip') as FormControl).disable();
+
+    this.form.get('city')?.valueChanges?.subscribe(city => {
+      // city型別是any
+      console.log(city);
+    });
   }
 
   update(): void {
