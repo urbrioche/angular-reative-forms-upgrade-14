@@ -4,19 +4,29 @@
       <label for="inputEmail4" class="form-label">Email</label>
       <input type="email" class="form-control" id="inputEmail4"
              formControlName="email"
+             [class.is-valid]="form.get('email')?.valid"
+             [class.is-invalid]="form.get('email')?.invalid"
       >
       <div class="invalid-feedback">
-        email is required
-        email is not correct
+        <ng-container *ngIf="form.get('email')?.errors?.required">
+          email is required
+        </ng-container>
+        <ng-container *ngIf="form.get('email')?.errors?.email">
+          email is not correct
+        </ng-container>
       </div>
     </div>
     <div class="col-md-6">
       <label for="inputPassword4" class="form-label">Password</label>
       <input type="password" class="form-control" id="inputPassword4"
              formControlName="password"
+             [class.is-valid]="form.get('password')?.valid"
+             [class.is-invalid]="form.get('password')?.invalid"
       >
       <div class="invalid-feedback">
-        the minimum length of password should be 6
+        <ng-container *ngIf="form.get('password')?.errors?.minlength">
+          the minimum length of password should be {{form.get('password')?.errors?.['minlength']?.['requiredLength']}}
+        </ng-container>
       </div>
     </div>
     <div class="col-12">
@@ -58,8 +68,8 @@
 <pre>
   form.valid = {{ form.valid }}
   form.status = {{ form.status }}
-  form.controls.email.errors = {{ form.get('email')?.errors | json }}
-  form.controls.password.errors = {{ form.get('password')?.errors | json }}
+  form.get('email')?.errors = {{ form.get('email')?.errors | json }}
+  form.get('password')?.errors = {{ form.get('password')?.errors | json }}
   form.value = {{ form.value | json }}
   form.getRawValue() = {{ form.getRawValue() | json }}
 </pre>
