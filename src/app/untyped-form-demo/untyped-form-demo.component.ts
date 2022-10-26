@@ -28,4 +28,14 @@ export class UntypedFormDemoComponent implements OnInit {
     (this.form.get('zip') as FormControl).disable();
   }
 
+  update(): void {
+    this.form.patchValue({
+      email: 'iamhere@me.com',
+      //address: 'haha',
+      // sometimes we have typo...
+      adress: 'haha',
+      city: 'Taipei',
+    });
+  }
+
 }
