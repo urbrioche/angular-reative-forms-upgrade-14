@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder, FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: 'app-untyped-form-demo',
@@ -8,10 +12,10 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } 
 })
 export class UntypedFormDemoComponent implements OnInit {
 
-  form: UntypedFormGroup;
+  form: FormGroup;
   cities = ['Taipei', 'Taichung', 'Kaohsiung'];
 
-  constructor(private fb: UntypedFormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       email: this.fb.control('i@me.com', {validators: [Validators.email, Validators.required]}),
       password: this.fb.control('abc123', {validators: [Validators.minLength(6)]}),
@@ -25,7 +29,7 @@ export class UntypedFormDemoComponent implements OnInit {
   ngOnInit(): void {
     // compile error
     // this.form.get('zip')?.disabled();
-    (this.form.get('zip') as UntypedFormControl).disable();
+    (this.form.get('zip') as FormControl).disable();
 
     this.form.get('city')?.valueChanges?.subscribe(city => {
       // city型別是any
